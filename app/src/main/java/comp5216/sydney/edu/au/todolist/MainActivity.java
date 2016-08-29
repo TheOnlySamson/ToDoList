@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     EditText addItemEditText;
 
     public final int EDIT_ITEM_REQUEST_CODE = 647;
+    public final int NEW_ITEM_REQUEST_CODE = 648;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         addItemEditText = (EditText) findViewById(R.id.add_item_sub);
         //create an ArrayList of String
         items = new ArrayList<String>();
-        items.add("item one");
-        items.add("item two");
 
         //must call it befer creating the adapter, because it references the right item list
         readItemsFromFile();
@@ -95,11 +96,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        else if (requestCode == NEW_ITEM_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                String newitem = data.getExtras().getString("item");
+                items.add(newitem);
+                itemsAdapter.notifyDataSetChanged();
+
+                saveItemsToFile();
+            }
+        }
     }
-    public void newItem(View view){
+    public void newItem(View view) {
 
-        startActivity(new Intent(MainActivity.this, NewToDoItemActivity.class));
-
+        Intent intent = new Intent(MainActivity.this, NewToDoItemActivity.class);
+        if (intent != null) {
+            // put "extras" into the bundle for access in the edit activity
+            intent.putExtra("item", "");
+            // brings up the second activity
+            startActivityForResult(intent, NEW_ITEM_REQUEST_CODE);
+            itemsAdapter.notifyDataSetChanged();
+        }
     }
     private void setupListViewListener() {
 //        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

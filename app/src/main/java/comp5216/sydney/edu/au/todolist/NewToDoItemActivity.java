@@ -23,23 +23,31 @@ public class NewToDoItemActivity extends AppCompatActivity {
         setContentView(R.layout.edit_add_item);
 
         editText = (EditText) findViewById(R.id.add_item_sub);
+        submit = (FloatingActionButton) findViewById(R.id.submit_new_item);
 
-////        // Prepare data intent for sending it back
-//        Intent data = new Intent();
-////
-////        // Pass relevant data back as a result
-//        data.putExtra("item", msg);
-//        data.putExtra("position", "354654");
-////
-////
-////        // Activity finished ok, return the data
-//        setResult(RESULT_OK, data); // set result code and bundle data for response
-//        finish(); // closes the activity, pass data to parent
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                msg = editText.getText().toString();
+
+                // Prepare data intent for sending it back
+                Intent data = new Intent();
+//
+//        // Pass relevant data back as a result
+                data.putExtra("item",msg);
+//
+//
+//        // Activity finished ok, return the data
+                setResult(RESULT_OK, data); // set result code and bundle data for response
+                finish(); // closes the activity, pass data to parent
+
+            }
+        });
 
     }
 
     public void onNewItemSubmit(View view){
-        msg = editText.getText().toString();
         Toast.makeText(NewToDoItemActivity.this, msg, Toast.LENGTH_LONG).show();
         //mainActivity.setupList(msg);
         startActivity(new Intent(NewToDoItemActivity.this, MainActivity.class));

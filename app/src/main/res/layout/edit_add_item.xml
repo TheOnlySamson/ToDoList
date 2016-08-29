@@ -11,10 +11,10 @@
         android:hint="Enter item here"/>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/submit_new_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_done_24dp"
-        android:onClick="onNewItemSubmit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>
 
