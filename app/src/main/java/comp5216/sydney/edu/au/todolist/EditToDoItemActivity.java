@@ -45,5 +45,9 @@ public class EditToDoItemActivity extends Activity {
 	  finish(); // closes the activity, pass data to parent
 
 	}
+	public void onEditItemClick(View view) {
+		Intent MainActivityIntent = new Intent(this, MainActivity.class);
+		startActivity(MainActivityIntent);
+	}
 
 }
