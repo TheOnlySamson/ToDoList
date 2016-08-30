@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.util.Log;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<String>();
 
         //must call it befer creating the adapter, because it references the right item list
-        readItemsFromFile();
+        readItemsFromDatabase();
 
         //Create an adapter for the list view using Android's built-in item layout
         itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
@@ -70,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
         String toAddString = addItemEditText.getText().toString();
         itemsAdapter.add(toAddString);
         addItemEditText.setText("");
-        saveItemsToFile();
+        saveItemsToDatabase();
         /*if (toAddString != null && toAddString.length() > 0) {
             itemsAdapter.add(toAddString);
             addItemEditText.setText("");
-            saveItemsToFile();
+            saveItemsToDatabase();
         }*/
     }
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "updated:" + editedItem, Toast.LENGTH_SHORT).show();
                 itemsAdapter.notifyDataSetChanged();
 
-                saveItemsToFile();
+                saveItemsToDatabase();
 
             }
         }
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 items.add(newitem);
                 itemsAdapter.notifyDataSetChanged();
 
-                saveItemsToFile();
+                saveItemsToDatabase();
             }
         }
     }
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                 //delete the item
                                 items.remove(position);
                                 itemsAdapter.notifyDataSetChanged();
-                                saveItemsToFile();
+                                saveItemsToDatabase();
 
                             }
                         })
@@ -206,6 +207,25 @@ public class MainActivity extends AppCompatActivity {
             FileUtils.writeLines(todoFile, items);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    private void readItemsFromDatabase() {
+        //read items from database
+        List<ToDoItem> itemsFromORM = ToDoItem.listAll(ToDoItem.class);
+        items = new ArrayList<String>();
+        if (itemsFromORM != null & itemsFromORM.size() > 0) {
+            for (ToDoItem item : itemsFromORM) {
+                items.add(item.todo);
+            }
+        }
+    }
+
+    private void saveItemsToDatabase() {
+        ToDoItem.deleteAll(ToDoItem.class);
+        for (String todo:items){
+            ToDoItem item = new ToDoItem(todo);
+            item.save();
+            Log.i("SQL saved item: ",todo);
         }
     }
 }
