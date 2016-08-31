@@ -46,8 +46,7 @@ public class EditToDoItemActivity extends Activity {
 
 	}
 	public void onEditItemClick(View view) {
-		Intent MainActivityIntent = new Intent(this, MainActivity.class);
-		startActivity(MainActivityIntent);
+		finish();
 	}
 
 }
