@@ -13,6 +13,7 @@ public class NewToDoItemActivity extends AppCompatActivity {
 
     EditText editText;
     FloatingActionButton submit;
+    FloatingActionButton cancel;
     MainActivity mainActivity = new MainActivity();
     String msg;
 
@@ -24,7 +25,6 @@ public class NewToDoItemActivity extends AppCompatActivity {
 
         editText = (EditText) findViewById(R.id.add_item_sub);
         submit = (FloatingActionButton) findViewById(R.id.submit_new_item);
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +45,15 @@ public class NewToDoItemActivity extends AppCompatActivity {
             }
         });
 
+        cancel = (FloatingActionButton) findViewById(R.id.cancel_new_item);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewToDoItemActivity.this, MainActivity.class));
+            }
+        });
     }
+
 
     public void onNewItemSubmit(View view){
         Toast.makeText(NewToDoItemActivity.this, msg, Toast.LENGTH_LONG).show();
