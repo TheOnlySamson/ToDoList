@@ -60,5 +60,7 @@ public class NewToDoItemActivity extends AppCompatActivity {
         //mainActivity.setupList(msg);
         startActivity(new Intent(NewToDoItemActivity.this, MainActivity.class));
     }
-
+     public void onnewcanItemClick(View view) {
+                 finish();
+    }
 }
