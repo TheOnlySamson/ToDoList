@@ -23,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_cancel_24dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/submit_new_item"
-        android:layout_toStartOf="@+id/submit_new_item"
-        android:onClick="onnewcanItemClick" />
+        android:onClick="onnewcanItemClick"
+        android:layout_above="@+id/submit_new_item"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

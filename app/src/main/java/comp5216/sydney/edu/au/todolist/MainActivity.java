@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 String newitem = data.getExtras().getString("item");
                 items.add(newitem);
                 itemsAdapter.notifyDataSetChanged();
-
                 saveItemsToDatabase();
             }
         }
